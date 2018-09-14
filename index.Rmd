@@ -1,0 +1,48 @@
+---
+title: 'Developing Data Products: Plotly'
+author: "Eric W Bucholz"
+date: "September 14, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r loadLibraries, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE}
+library(plotly)
+```
+
+## Plotly Interactive Graphic
+
+```{r plot1, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
+mtcars$cyl <- factor(mtcars$cyl,
+                     labels = c("4 cylinders",
+                                "6 cylinders",
+                                "8 cylinders"))
+plot_ly(mtcars, x = ~wt, y = ~hp, type = "scatter", mode = "markers",
+       color = ~cyl, size = ~mpg, hoverinfo = "text",
+       text = ~paste("MPG:", mpg)) %>%
+    layout(title = "Effect of Vehicle Weight, Horsepower, and Cylinders on MPG",
+           xaxis = list(title = "Weight (1000 lbs)"),
+           yaxis = list(title = "Horsepower"))
+```
+
+*The code for this interactive Plotly graphic is on the next slide.*  
+
+## Plotly Code for Graphic
+
+```{r plotCode, echo = TRUE, eval = FALSE}
+mtcars$cyl <- factor(mtcars$cyl,
+                     labels = c("4 cylinders",
+                                "6 cylinders",
+                                "8 cylinders"))
+plot_ly(mtcars, x = ~wt, y = ~hp, type = "scatter", mode = "markers",
+       color = ~cyl, size = ~mpg, hoverinfo = "text",
+       text = ~paste("MPG:", mpg)) %>%
+    layout(title = "Effect of Vehicle Weight, Horsepower, and Cylinders on MPG",
+           xaxis = list(title = "Weight (1000 lbs)"),
+           yaxis = list(title = "Horsepower"))
+```
+
+The plot on the previous slide shows the relationship between vehicle weight, horsepower, number of cylinders, and MPG fuel efficiency for cars from the mtcars dataset. It is evident that MPG is generally inversely proportional to weight and horsepower. Number of cylinders is also related to MPG, but it appears to primarily distinguish different clusters in the plot.  
